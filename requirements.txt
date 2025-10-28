@@ -5,3 +5,4 @@ python-dotenv
 redis
 influxdb-client
 gunicorn
+django-cors-headers
