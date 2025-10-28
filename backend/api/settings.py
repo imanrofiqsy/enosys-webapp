@@ -29,9 +29,6 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-default-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.railway.app']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -160,10 +157,14 @@ CHANNEL_LAYERS = {
     },
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "http://enosys-webapp.vercel.app",  # ganti dengan domain Vercel kamu
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    ".railway.app",
+    ".vercel.app",
+    "localhost"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://enosys-webapp.vercel.app",
+    "https://*.vercel.app",
+    "https://*.railway.app"
 ]
