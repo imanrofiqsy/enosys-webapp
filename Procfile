@@ -1,1 +1,1 @@
-web: daphne -b 0.0.0.0 -p $PORT api.asgi:application
+web: sh -c "daphne -b 0.0.0.0 -p ${PORT:-8000} enosys.asgi:application"
