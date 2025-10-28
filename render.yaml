@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: enosys-backend
+    env: docker
+    plan: free
+    autoDeploy: true
+    region: singapore
+    ports:
+      - 8000
