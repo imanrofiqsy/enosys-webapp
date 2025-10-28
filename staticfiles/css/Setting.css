@@ -1,0 +1,169 @@
+﻿:root {
+    font-size: 16px; /* 1rem = 16px sebagai dasar, bisa disesuaikan */
+}
+
+.Title-Page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 20px;
+    gap: 15px;
+}
+
+    .Title-Page a {
+        font-family: 'Segoe UI', sans-serif;
+        font-size: 25px;
+        font-weight: bold;
+        color: black;
+    }
+
+    .Title-Page .Icon-Page {
+        height: 45px;
+        width: 45px;
+    }
+
+.Panel-Container-Row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px;
+    flex-wrap: wrap;
+    margin-top: 0px;
+    min-height: fit-content;
+    /*border: 2px solid red;*/
+}
+
+.Panel-Container {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 10px;
+    min-height: fit-content;
+    width: 100%;
+    /*border: 2px solid red;*/
+}
+
+
+
+.section {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+}
+
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.group-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #59C19B;
+}
+.delete-btn {
+    background-color: #FFA048;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #e88c2d;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f0f0f0;
+}
+
+input[type="text"] {
+    width: 90%;
+    padding: 5px;
+}
+
+.save-btn {
+    background-color: #59C19B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.save-btn:hover {
+    background-color: #4aaf8b;
+}
+
+.plc-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+input[type="text"] {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline-color: #59C19B;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f1f1f1;
+}

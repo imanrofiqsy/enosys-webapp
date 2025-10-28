@@ -1,0 +1,154 @@
+<!-- Dashboard.html - Modern Version -->
+{% extends 'Site.html' %}
+{% load static %}
+
+{% block title %}Dashboard - ENOSYS{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/Dashboard-Modern.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %}
+
+{% block Maincontent %}
+<div class="modern-dashboard-container">
+    <!-- Header with Theme Toggle -->
+    <div class="dashboard-header">
+        <div class="header-left">
+            <div class="header-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <h1 class="header-title">Dashboard</h1>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark Mode">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- KPI Cards Grid -->
+    <div class="kpi-grid">
+        <!-- Card 1: Overall System Efficiency -->
+        <div class="kpi-card" data-aos="fade-up" data-aos-delay="0">
+            <div class="kpi-header">
+                <i class="fas fa-tachometer-alt"></i>
+                <span class="kpi-header-text">Overall System Efficiency</span>
+            </div>
+            <div class="kpi-body">
+                <span class="kpi-value" id="value_box1">{{ value_box1 }}</span>
+                <span class="kpi-unit" id="unit_box1">{{ unit_box1 }}</span>
+            </div>
+        </div>
+
+        <!-- Card 2: Renewable Energy -->
+        <div class="kpi-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="kpi-header">
+                <i class="fas fa-bolt"></i>
+                <span class="kpi-header-text">Renewable Energy Utilization</span>
+            </div>
+            <div class="kpi-body">
+                <span class="kpi-value" id="value_box2">{{ value_box2 }}</span>
+                <span class="kpi-unit" id="unit_box2">{{ unit_box2 }}</span>
+            </div>
+        </div>
+
+        <!-- Card 3: Carbon Reduction -->
+        <div class="kpi-card" data-aos="fade-up" data-aos-delay="200">
+            <div class="kpi-header">
+                <i class="fas fa-cloud"></i>
+                <span class="kpi-header-text">Carbon Emission Reduction</span>
+            </div>
+            <div class="kpi-body">
+                <span class="kpi-value" id="value_box3">{{ value_box3 }}</span>
+                <span class="kpi-unit" id="unit_box3">{{ unit_box3 }}</span>
+            </div>
+        </div>
+
+        <!-- Card 4: Cost Savings -->
+        <div class="kpi-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="kpi-header">
+                <i class="fas fa-dollar-sign"></i>
+                <span class="kpi-header-text">Energy Cost Savings</span>
+            </div>
+            <div class="kpi-body">
+                <span class="kpi-value" id="value_box4">{{ value_box4 }}</span>
+                <span class="kpi-unit kpi-unit-small" id="unit_box4">{{ unit_box4 }}</span>
+            </div>
+        </div>
+
+        <!-- Card 5: Carbon Footprint -->
+        <div class="kpi-card" data-aos="fade-up" data-aos-delay="400">
+            <div class="kpi-header">
+                <i class="fas fa-leaf"></i>
+                <span class="kpi-header-text">System Carbon Footprint</span>
+            </div>
+            <div class="kpi-body">
+                <span class="kpi-value" id="value_box5">{{ value_box5 }}</span>
+                <span class="kpi-unit kpi-unit-small" id="unit_box5">{{ unit_box5 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Charts Section -->
+    <div class="charts-main-grid">
+        <!-- Energy Usage Chart -->
+        <div class="chart-panel chart-panel-large" data-aos="fade-up">
+            <div class="chart-title">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Energy Usage</h3>
+            </div>
+            <div class="chart-container" id="energyUsageChart"></div>
+        </div>
+
+        <!-- Daily Cost Pie Chart -->
+        <div class="chart-panel" data-aos="fade-up" data-aos-delay="100">
+            <div class="chart-title">
+                <i class="fas fa-coins"></i>
+                <h3>Daily Energy Cost</h3>
+            </div>
+            <div class="chart-container" id="dailyCostPieChart"></div>
+        </div>
+    </div>
+
+    <!-- Carbon Footprint Line Chart -->
+    <div class="chart-panel chart-panel-full" data-aos="fade-up">
+        <div class="chart-title">
+            <i class="fas fa-smog"></i>
+            <h3>Carbon Footprint CO₂</h3>
+        </div>
+        <div class="chart-container chart-container-large" id="carbonFootprintChart"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block MaincontentRight %}
+<div class="sidebar-modern">
+    <!-- Energy Mode Panel -->
+    <div class="energy-mode-panel" data-aos="fade-left">
+        <div class="energy-mode-title">{{ best_power_text }}</div>
+        <i class="fas fa-battery-three-quarters energy-mode-icon"></i>
+        <div class="energy-mode-text">
+            This mode will help to extend the<br>
+            power storage efficiency
+        </div>
+        <button class="change-plan-btn" onclick="alert('Change Plan Feature Coming Soon!')">
+            <i class="fas fa-sync-alt"></i>
+            Change Plan
+        </button>
+    </div>
+
+    <!-- Energy Storage Panel -->
+    <div class="energy-storage-panel" data-aos="fade-left" data-aos-delay="100">
+        <div class="chart-title">
+            <i class="fas fa-charging-station"></i>
+            <h3>Energy Storage</h3>
+        </div>
+        <div class="chart-container" id="energyStorageGauge"></div>
+    </div>
+</div>
+
+<script src="{% static 'js/dashboard-modern.js' %}"></script>
+{% endblock %}

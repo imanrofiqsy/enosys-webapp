@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <html lang="en" data-theme="light">
+    <title>{% block title %}ENOSYS{% endblock %}</title>
+    <link rel="icon" href="{% static 'image/Icon-sanindo.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/Site.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Loading Page -->
+    <div id="loadingOverlay">
+      <div class="loading-box">
+        <img src="{% static 'image/Icon-sanindo.ico' %}" alt="Company Logo" class="loading-logo" />
+        <div class="spinner"></div>
+        <div class="loading-text">Loading System...</div>
+      </div>
+    </div>
+
+    <div class="top-bar">
+        <div class="HeadBar">
+            <img Class="logoSanindo"  src="{% static 'image/SANINDO ENOSYS.png' %}" alt="APPS Logo"/>
+
+            <div class="alarm-indicators">
+                <!-- High Priority Alarm -->
+                <div class="alarm-item" title="High Priority Alarms">
+                    <div class="alarm-icon-wrapper alarm-high">
+                        <img src="{% static 'image/sign.png' %}" alt="High Alarm" class="alarm-icon" />
+                    </div>
+                    <span class="alarm-count" id="high-count">{{ alarm_counts.high }}</span>
+                </div>
+
+                <!-- Medium Priority Alarm -->
+                <div class="alarm-item" title="Medium Priority Alarms">
+                    <div class="alarm-icon-wrapper alarm-medium">
+                        <img src="{% static 'image/lightning.png' %}" alt="Medium Alarm" class="alarm-icon" />
+                    </div>
+                    <span class="alarm-count" id="medium-count">{{ alarm_counts.medium }}</span>
+                </div>
+
+                <!-- Low Priority Alarm -->
+                <div class="alarm-item" title="Low Priority Alarms">
+                    <div class="alarm-icon-wrapper alarm-low">
+                        <img src="{% static 'image/info.png' %}" alt="Low Alarm" class="alarm-icon" />
+                    </div>
+                    <span class="alarm-count" id="low-count">{{ alarm_counts.low }}</span>
+                </div>
+
+                <!-- Total Alarms -->
+                <div class="alarm-total" title="Total Active Alarms">
+                    <div class="total-icon-wrapper">
+                        <img src="{% static 'image/sigma.png' %}" alt="Total Alarm" class="total-icon" />
+                    </div>
+                    <span id="total-count">{{ alarm_counts.total }}</span>
+                </div>
+            </div>
+            
+
+            <div class="right-icons">
+                <!-- Modbus Status -->
+                {% comment %} <div id="modbus-status" class="modbus-status">
+                    <span class="dot"></span>
+                    <span class="text">Checking...</span>
+                </div> {% endcomment %}
+
+                <!-- Notification Icon -->
+                <img src="{% static 'image/notification.png' %}" class="icon" alt="Notification Icon" />
+                
+                {% if user.is_authenticated %}
+                    <!-- User Icon after login -->
+                    <img src="{% static 'image/user (1).png' %}" class="icon" alt="User Icon" onclick="toggleLogoutMenu(); return false;" id="UserButton" />
+                {% else %}
+                    <!-- Login Icon -->
+                    <img src="{% static 'image/user.png' %}" class="icon" alt="Login Icon" onclick="showLogin(); return false;" />
+                {% endif %}
+                
+                <!-- More Icon -->
+                <img src="{% static 'image/more.png' %}" class="icon" alt="More Icon" />
+            </div>
+
+            <!-- Popup Login -->
+            {% if not user.is_authenticated %}
+            <div id="loginPanel" class="LoginPanel" style="display: none;">
+                <div class="Login-dialog">
+                    <span class="close" onclick="closeLogin()">&times;</span>
+                    <div class="Login-header"> 
+                        <img src="{% static 'image/Icon-sanindo.ico' %}" alt="Company Logo" class="Login-Logo" />
+                        <h2>Login</h2>
+                    </div>
+                    <div class="Login-body">
+                        <form id="loginForm">
+                            {% csrf_token %}
+                            <label for="id_username" class="label">Username</label>
+                            <input type="text" id="id_username" name="username" class="textbox" required />
+
+                            <label for="id_password" class="label">Password</label>
+                            <input type="password" id="id_password" name="password" class="textbox" required />
+
+                            <div id="login-error" style="color:red; margin-top: 10px;"></div>
+
+                            <button type="submit" class="btn">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+           <!-- Logout Menu -->
+           {% if user.is_authenticated %}
+           <div id="logoutMenu" class="logout-menu" style="display: none;">
+               <button type="button" class="btn-logout" onclick="logout()">Logout</button>
+           </div>
+       {% endif %}
+
+        </div>
+    </div>
+
+    <div class="layout">
+        <div class="sidebar" id="sidebar">
+            <ul>
+                <li><a>MENU</a></li>
+                <li class="{% if request.path == '/' %}active{% endif %}">
+                    <a href="{% url 'dashboard' %}" class="tooltip" data-tooltip="Dashboard"><img src="{% static 'image/dashboard.png' %}" class="menu-icon" /></a>
+                </li>
+                <li class="{% if request.path|slice:':9' == '/diagram/' %}active{% endif %}">
+                    <a href="#" class="tooltip" data-tooltip="Diagram"><img src="{% static 'image/flow.png' %}" class="menu-icon" /></a>
+                    <ul class="submenu">
+                        <li><a href="#">One Line Diagram</a></li>
+                        <li><a href="#">EUI Map</a></li>
+                        <li><a href="#">COMM Status</a></li>
+                      </ul>
+                </li>
+                <li class="{% if request.path == '/Equipment/' %}active{% endif %}">
+                    <a href="#" class="tooltip" data-tooltip="Equipment"><img src="{% static 'image/manage.png' %}" class="menu-icon" /></a>
+                </li>
+                <li class="{% if request.path == '/Scheduling/' %}active{% endif %}">
+                    <a href="#" class="tooltip" data-tooltip="Scheduling"><img src="{% static 'image/calendar.png' %}" class="menu-icon" /></a>
+                </li>
+                <li class="{% if request.path == '/Cost/' %}active{% endif %}">
+                    <a href="#" class="tooltip" data-tooltip="Cost"><img src="{% static 'image/cost-efficiency.png' %}" class="menu-icon" /></a>
+                </li>
+                <li class="{% if request.path == '/Report/' %}active{% endif %}">
+                    <a href="#" class="tooltip" data-tooltip="Report"><img src="{% static 'image/report.png' %}" class="menu-icon" /></a>
+                </li>
+                <li class="{% if request.path == '/Alarm/' %}active{% endif %}">
+                    <a href="#" class="tooltip" data-tooltip="Alarm"><img src="{% static 'image/alarm.png' %}" class="menu-icon" /></a>
+                </li>
+                <li class="{% if request.path == '/settings/' %}active{% endif %}">
+                    <a href="#" onclick= "return handleSettingClick();" class="tooltip" data-tooltip="Settings"><img src="{% static 'Image/settings.png' %}" class="menu-icon" /></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div class="content-wrapper">
+                {% block Maincontent %}{% endblock %}
+            </div>
+        </div>
+
+        {% block MaincontentRight %} {% endblock %}
+
+    <script>
+        window.addEventListener("load", function () {
+            const overlay = document.getElementById("loadingOverlay");
+            overlay.style.opacity = 0;
+            setTimeout(() => {
+                overlay.style.display = "none";
+            }, 500);
+        });
+
+    </script>
+</body>
+</html>
