@@ -4,3 +4,4 @@ daphne
 python-dotenv
 redis
 influxdb-client
+gunicorn
